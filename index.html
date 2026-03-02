@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="vi">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#3749d0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Sổ vụ việc 2026">
+  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiSOG7hyB0aOG7kW5nIHF14bqjbiBsw70gduG7pSDhu4bhur9jIMSR4buLbiB04butIDIwMjYiLCJzaG9ydF9uYW1lIjoiU+G7lSB24bulIOG6vuG7h2MgMjAyNiIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjM2E1N2I3IiwidGhlbWVfY29sb3IiOiIjMzc0OWQwIiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCclM0UlM0NyZWN0IHdpZHRoPScxMDAnIGhlaWdodD0nMTAwJyBmaWxsPSclMjMzNzQ5ZDAnLyUzRSUzQ3RleHQgeD0nNTAnIHk9JzUwJyBmb250LXNpemU9JzUwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkeT0nLjNlbScgZmlsbD0nJTIzZmZmJyUzRVMlM0MvdGV4dCUzRSUzQy9zdmclM0UiLCJzaXplcyI6IjUxMng1MTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+  <title>Hệ thống quản lý vụ việc điện tử 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #3a57b7;
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+            box-sizing: border-box;
+            min-height: 100%;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-hover:hover::before {
+            left: 100%;
+        }
+        
+        .btn-hover:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-hover:active {
+            transform: translateY(-2px) scale(1.01);
+        }
+        
+        .police-badge {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            border: 2px solid #92400e;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+        }
+        
+        .status-indicator {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .icon-bounce:hover {
+            animation: bounce 0.6s ease-in-out;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .security-notice {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .footer-gradient {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        }
+        
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            max-width: 400px;
+            margin: 1rem;
+            animation: popupFade 0.3s ease-out;
+        }
+        
+        @keyframes popupFade {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+ </head>
+ <body><!-- Popup Overlay -->
+  <div id="popupOverlay" class="popup-overlay" onclick="closePopup()">
+   <div class="popup-content" onclick="event.stopPropagation()">
+    <div class="bg-purple-100 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="currentColor" viewbox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11M12,9A1,1 0 0,1 11,8A1,1 0 0,1 12,7A1,1 0 0,1 13,8A1,1 0 0,1 12,9Z" />
+     </svg>
+    </div>
+    <h3 class="text-xl font-bold text-gray-800 mb-2">Thông báo</h3>
+    <p class="text-gray-600 mb-6">Tính năng đang phát triển.</p><button onclick="closePopup()" class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300"> Đóng </button>
+   </div>
+  </div>
+  <script>
+        function showDevelopmentMessage() {
+            document.getElementById('popupOverlay').style.display = 'flex';
+        }
+        
+        function closePopup() {
+            document.getElementById('popupOverlay').style.display = 'none';
+        }
+
+        // PWA Install functionality
+        let deferredPrompt;
+        const installButton = document.getElementById('installButton');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // Show the install button
+            installButton.classList.remove('hidden');
+        });
+
+        installButton.addEventListener('click', async () => {
+            if (!deferredPrompt) {
+                return;
+            }
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                installButton.classList.add('hidden');
+            }
+            deferredPrompt = null;
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installButton.classList.add('hidden');
+            deferredPrompt = null;
+        });
+    </script>
+  <div class="flex flex-col min-h-screen"><!-- Main Content -->
+   <div class="flex-1 flex items-center justify-center p-3 sm:p-4 lg:p-4">
+    <div class="w-full max-w-5xl glass-effect rounded-3xl card-shadow overflow-hidden"><!-- Title Section -->
+     <div class="text-white p-3 sm:p-4 lg:p-4 text-center relative overflow-hidden" style="background: #3749d0;">
+      <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+      <div class="relative z-10">
+       <div class="flex flex-col items-center justify-center mb-2 sm:mb-4">
+        <div class="text-center">
+         <h1 class="text-lg sm:text-xl lg:text-2xl font-bold mb-2 sm:mb-3 gradient-text bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent" style="font-family: 'Poppins', 'Inter', sans-serif;">HỆ THỐNG NHẬP LIỆU, QUẢN LÝ SỔ VỤ VIỆC ĐIỆN TỬ 2026</h1>
+         <div class="flex items-center justify-center mt-1 sm:mt-2">
+          <div class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div><span class="text-green-300 text-xs sm:text-sm font-medium">Đang hoạt động</span>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Buttons Section -->
+     <div class="p-3 sm:p-4 lg:p-4"><!-- Install App Button - Full Width (Hidden by default, shown when installable) -->
+      <div id="installButton" class="mb-2 sm:mb-3 hidden"><button onclick="this.parentElement.click()" class="group w-full">
+        <div class="bg-gradient-to-br from-pink-500 via-rose-500 to-red-500 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-white text-center btn-hover h-full flex flex-col justify-between min-h-[90px] sm:min-h-[100px] relative">
+         <div class="status-indicator bg-pink-300"></div>
+         <div class="mb-1 sm:mb-2">
+          <div class="bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-1.5 sm:p-2 w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-1 sm:mb-2 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M11,15V12H9V15H7L10.5,18.5L14,15H11Z" />
+           </svg>
+          </div>
+          <h2 class="text-sm sm:text-base font-bold mb-0.5 sm:mb-1">📱 Cài đặt ứng dụng</h2>
+          <p class="text-pink-100 text-xs opacity-90">Cài đặt vào màn hình chính của bạn</p>
+         </div>
+         <div class="mt-auto"><span class="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl text-white text-xs sm:text-sm font-semibold group-hover:bg-white/30 transition-all duration-300 w-full"> Cài đặt ngay 
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 ml-1 sm:ml-2 group-hover:translate-y-1 transition-transform duration-300" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+           </svg></span>
+         </div>
+        </div></button>
+      </div><!-- Top Row - Two buttons -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-2 sm:mb-3"><!-- Google Forms Button --> <a href="https://forms.gle/pTQ5Bod5uu7GSaHi8" target="_blank" rel="noopener noreferrer" class="group">
+        <div class="bg-gradient-to-br from-rose-500 via-red-500 to-red-600 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-white text-center btn-hover h-full flex flex-col justify-between min-h-[90px] sm:min-h-[100px] relative">
+         <div class="status-indicator"></div>
+         <div class="mb-1 sm:mb-2">
+          <div class="bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-1.5 sm:p-2 w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-1 sm:mb-2 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+           </svg>
+          </div>
+          <h2 class="text-sm sm:text-base font-bold mb-0.5 sm:mb-1">Nhập liệu vụ việc mới</h2>
+          <p class="text-red-100 text-xs opacity-90">Tạo báo cáo vụ việc mới</p>
+         </div>
+         <div class="mt-auto"><span class="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl text-white text-xs sm:text-sm font-semibold group-hover:bg-white/30 transition-all duration-300 w-full"> Mở biểu mẫu 
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+           </svg></span>
+         </div>
+        </div></a> <!-- Google Sheets Button --> <a href="https://docs.google.com/spreadsheets/d/1Eb2qXccKoT5CFddJOPy9_VlBg3rzrJgGRC2zmHGsc6k/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group">
+        <div class="bg-gradient-to-br from-emerald-500 via-green-500 to-green-600 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-white text-center btn-hover h-full flex flex-col justify-between min-h-[90px] sm:min-h-[100px] relative">
+         <div class="status-indicator"></div>
+         <div class="mb-1 sm:mb-2">
+          <div class="bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-1.5 sm:p-2 w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-1 sm:mb-2 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M19,3H5C3.9,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.9 20.1,3 19,3M9,17H7V10H9V17M13,17H11V7H13V17M17,17H15V13H17V17Z" />
+           </svg>
+          </div>
+          <h2 class="text-sm sm:text-base font-bold mb-0.5 sm:mb-1">Xem sổ vụ việc 2026</h2>
+          <p class="text-green-100 text-xs opacity-90">Danh sách tất cả vụ việc</p>
+         </div>
+         <div class="mt-auto"><span class="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl text-white text-xs sm:text-sm font-semibold group-hover:bg-white/30 transition-all duration-300 w-full"> Mở bảng tính 
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+           </svg></span>
+         </div>
+        </div></a>
+      </div><!-- Middle Row - Two buttons -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-2 sm:mb-3"><!-- Progress Management Button --> <a href="https://docs.google.com/spreadsheets/d/1i0Nz1HvLBZzNHL96G23pf1Siix4cqiiCXwoUzaF0Cfg/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group">
+        <div class="bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-white text-center btn-hover h-full flex flex-col justify-between min-h-[90px] sm:min-h-[100px] relative">
+         <div class="status-indicator"></div>
+         <div class="mb-1 sm:mb-2">
+          <div class="bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-1.5 sm:p-2 w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-1 sm:mb-2 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z" />
+           </svg>
+          </div>
+          <h2 class="text-sm sm:text-base font-bold mb-0.5 sm:mb-1">Quản lý tiến độ vụ việc</h2>
+          <p class="text-blue-100 text-xs opacity-90">Theo dõi tiến độ xử lý</p>
+         </div>
+         <div class="mt-auto"><span class="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl text-white text-xs sm:text-sm font-semibold group-hover:bg-white/30 transition-all duration-300 w-full"> Xem tiến độ 
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+           </svg></span>
+         </div>
+        </div></a> <!-- Investigation Notes Button --> <a href="javascript:void(0)" onclick="showDevelopmentMessage()" class="group">
+        <div class="bg-gradient-to-br from-violet-500 via-purple-500 to-purple-600 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-white text-center btn-hover h-full flex flex-col justify-between min-h-[90px] sm:min-h-[100px] relative">
+         <div class="status-indicator bg-orange-400"></div>
+         <div class="mb-1 sm:mb-2">
+          <div class="bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-1.5 sm:p-2 w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-1 sm:mb-2 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M15.5,12C18,12 20,14 20,16.5C20,17.38 19.75,18.21 19.31,18.9L22.39,22L21,23.39L17.88,20.32C17.19,20.75 16.37,21 15.5,21C13,21 11,19 11,16.5C11,14 13,12 15.5,12M15.5,14A2.5,2.5 0 0,0 13,16.5A2.5,2.5 0 0,0 15.5,19A2.5,2.5 0 0,0 18,16.5A2.5,2.5 0 0,0 15.5,14M6.5,2H17.5L22,6.5V16H20V8L16,4H6.5A1.5,1.5 0 0,0 5,5.5V18.5A1.5,1.5 0 0,0 6.5,20H11V22H6.5A3.5,3.5 0 0,1 3,18.5V5.5A3.5,3.5 0 0,1 6.5,2Z" />
+           </svg>
+          </div>
+          <h2 class="text-sm sm:text-base font-bold mb-0.5 sm:mb-1">Tra cứu phân công công việc</h2>
+          <p class="text-purple-100 text-xs opacity-90">Tìm kiếm phân công nhiệm vụ</p>
+         </div>
+         <div class="mt-auto"><span class="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl text-white text-xs sm:text-sm font-semibold group-hover:bg-white/30 transition-all duration-300 w-full"> Mở tra cứu 
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+           </svg></span>
+         </div>
+        </div></a>
+      </div><!-- Bottom Row - Two buttons -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 mb-2 sm:mb-3"><!-- Golden Board Button --> <a href="https://saraking1995.github.io/chungnhan/" target="_blank" rel="noopener noreferrer" class="group">
+        <div class="bg-gradient-to-br from-amber-400 via-yellow-500 to-orange-500 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-white text-center btn-hover h-full flex flex-col justify-between min-h-[90px] sm:min-h-[100px] relative overflow-hidden">
+         <div class="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-400/20"></div>
+         <div class="status-indicator bg-yellow-300"></div>
+         <div class="relative z-10">
+          <div class="mb-1 sm:mb-2">
+           <div class="bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-1.5 sm:p-2 w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-1 sm:mb-2 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12,2L13.09,8.26L22,9L17,14L18.18,23L12,19.77L5.82,23L7,14L2,9L10.91,8.26L12,2Z" />
+            </svg>
+           </div>
+           <h2 class="text-sm sm:text-base font-bold mb-0.5 sm:mb-1">Thành tích nổi bật trong tháng</h2>
+           <p class="text-yellow-100 text-xs opacity-90">Bảng vinh danh cá nhân xuất sắc</p>
+          </div>
+          <div class="mt-auto"><span class="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl text-white text-xs sm:text-sm font-semibold group-hover:bg-white/30 transition-all duration-300 w-full"> Xem bảng vàng 
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg></span>
+          </div>
+         </div>
+        </div></a> <!-- 2025 Records Button --> <a href="https://docs.google.com/spreadsheets/d/17cAHRFPdnmwvKh4vn0yK_XYmJJJLIOBArXCqFgCshf8/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="group">
+        <div class="bg-gradient-to-br from-cyan-500 via-teal-500 to-teal-600 rounded-xl sm:rounded-2xl p-2 sm:p-3 text-white text-center btn-hover h-full flex flex-col justify-between min-h-[90px] sm:min-h-[100px] relative">
+         <div class="status-indicator"></div>
+         <div class="mb-1 sm:mb-2">
+          <div class="bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-1.5 sm:p-2 w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-1 sm:mb-2 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewbox="0 0 24 24"><path d="M19,3H5C3.9,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.9 20.1,3 19,3M9,17H7V10H9V17M13,17H11V7H13V17M17,17H15V13H17V17Z" />
+           </svg>
+          </div>
+          <h2 class="text-sm sm:text-base font-bold mb-0.5 sm:mb-1">Xem sổ vụ việc 2025</h2>
+          <p class="text-cyan-100 text-xs opacity-90">Tra cứu vụ việc năm 2025</p>
+         </div>
+         <div class="mt-auto"><span class="inline-flex items-center justify-center px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl text-white text-xs sm:text-sm font-semibold group-hover:bg-white/30 transition-all duration-300 w-full"> Mở bảng tính 
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 sm:h-4 sm:w-4 ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+           </svg></span>
+         </div>
+        </div></a>
+      </div><!-- Security Notice -->
+      <div class="mt-3 sm:mt-4 lg:mt-6 security-notice border-l-4 border-amber-500 p-2 sm:p-3 lg:p-4 rounded-r-xl sm:rounded-r-2xl shadow-lg">
+       <div class="flex items-start">
+        <div class="flex-shrink-0">
+         <div class="bg-amber-100 rounded-full p-1.5 sm:p-2">
+          <svg class="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-amber-600" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+          </svg>
+         </div>
+        </div>
+        <div class="ml-2 sm:ml-3 lg:ml-4">
+         <h3 class="text-sm sm:text-base font-semibold text-amber-800 mb-0.5 sm:mb-1">Lưu ý bảo mật</h3>
+         <p class="text-xs sm:text-sm text-amber-700 leading-relaxed">Hệ thống này chỉ dành cho cán bộ được phân quyền. Vui lòng bảo mật thông tin và không chia sẻ liên kết với người không có thẩm quyền.</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Footer -->
+   <div class="footer-gradient text-white py-3 sm:py-4 lg:py-6 px-3 sm:px-4 lg:px-6 border-t border-gray-700/50">
+    <div class="max-w-5xl mx-auto">
+     <div class="flex flex-col lg:flex-row justify-between items-center text-center lg:text-left space-y-2 sm:space-y-3 lg:space-y-0">
+      <div class="flex flex-col sm:flex-row items-center space-y-1 sm:space-y-0 sm:space-x-3 lg:space-x-4">
+       <div class="flex items-center text-xs sm:text-sm text-gray-300">
+        <div class="bg-blue-600 rounded-full p-0.5 sm:p-1 mr-1 sm:mr-2">
+         <svg xmlns="http://www.w3.org/2000/svg" class="h-2.5 w-2.5 sm:h-3 sm:w-3" fill="currentColor" viewbox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11M12,9A1,1 0 0,1 11,8A1,1 0 0,1 12,7A1,1 0 0,1 13,8A1,1 0 0,1 12,9Z" />
+         </svg>
+        </div><span class="font-medium">Lưu hành nội bộ</span>
+       </div>
+       <div class="text-xs sm:text-sm text-gray-400">
+        Được quản lý bởi <span class="text-blue-300 font-medium">Nguyễn Đức Nghĩa</span> - Đội trưởng Đội 1
+       </div>
+      </div>
+      <div class="flex items-center space-x-2 sm:space-x-3 lg:space-x-4">
+       <div class="flex items-center text-xs sm:text-sm text-gray-300">
+        <div class="bg-amber-600 rounded-full p-0.5 sm:p-1 mr-1 sm:mr-2">
+         <svg xmlns="http://www.w3.org/2000/svg" class="h-2.5 w-2.5 sm:h-3 sm:w-3" fill="currentColor" viewbox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V5l-9-4z" />
+         </svg>
+        </div><span>© Đội 1 - PC09 Khánh Hòa</span>
+       </div>
+       <div class="text-xs text-gray-500 bg-gray-800 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full">
+        v2026.1
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d5cf98ac04a84d9',t:'MTc3MjQxODU3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
